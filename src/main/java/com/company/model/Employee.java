@@ -69,5 +69,4 @@ public class Employee {
     public void setDateOfHire(String dateOfHire) {
         this.dateOfHire = dateOfHire;
     }
-
 }

@@ -1,4 +1,3 @@
-
 package com.company.logic;
 
 import com.company.model.Employee;
@@ -14,18 +13,18 @@ public class EmployeeLogic {
     private static final String GET_BY_ID = "Employee.getById";
 
     public Employee get(int idEmployee) {
-        Employee contacto = null;
+        Employee employee = null;
         SqlSession session = null;
         try {
             session = new Connection().getSqlSession();
             if (session != null) {
-                contacto = session.selectOne(GET_BY_ID, idEmployee);
+                employee = session.selectOne(GET_BY_ID, idEmployee);
                 session.commit();
-            } 
+            }
         } catch (Exception e) {
         } finally {
             session.close();
         }
-        return contacto;
+        return employee;
     }
 }

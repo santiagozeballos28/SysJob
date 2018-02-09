@@ -25,15 +25,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
     </resultMap>
 
     <select id = "getAll" resultMap = "result">
-        SELECT * FROM EMPLOYEE; 
+        SELECT * 
+          FROM EMPLOYEE; 
     </select>
     <select id = "getById" parameterType = "int" resultMap = "result">
         SELECT employee_id,
-        last_name,
-        first_name,
-        email,
-        date_of_hire 
-        FROM EMPLOYEE
-        WHERE employee_id = #{idEmployee};
+               last_name,
+               first_name,
+               email,
+               date_of_hire 
+          FROM EMPLOYEE
+         WHERE employee_id = #{idEmployee};
     </select>
 </mapper>

@@ -30,7 +30,7 @@ public class Employee {
         this.dateOfHire = dateOfHire;
     }
 
-    public int getIdEmployee() {
+    public long getIdEmployee() {
         return idEmployee;
     }
 

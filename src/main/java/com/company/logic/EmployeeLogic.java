@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.company.logic;
 
 import com.company.model.Employee;
-import com.company.session.MyBatisUtil;
+import com.company.session.Connection;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -15,37 +11,20 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class EmployeeLogic {
 
-    public String insert(Employee employee) {
-        SqlSession session = new MyBatisUtil().getSqlSession();
-        String res = "No insertado";
-        if (session != null) {
-            try {
-                session.insert("Employee.insertarEmployee", employee);
-                session.commit();
-                res = "Insertado";
-            } finally {
-                session.close();
-            }
-        } else {
-            System.out.println("Error.. to open Session");
-            res = "Error.. to open Session";
-        }
-        return res;
-    }
+    private static final String GET_BY_ID = "Employee.getById";
 
     public Employee get(int idEmployee) {
-        SqlSession session = new MyBatisUtil().getSqlSession();
         Employee contacto = null;
-        if (session != null) {
-            try {
-                System.out.println("Employee.getById: " + idEmployee);
-                contacto = session.selectOne("Employee.getById", idEmployee);
+        SqlSession session = null;
+        try {
+            session = new Connection().getSqlSession();
+            if (session != null) {
+                contacto = session.selectOne(GET_BY_ID, idEmployee);
                 session.commit();
-            } finally {
-                session.close();
-            }
-        } else {
-            System.out.println("Error.. to open Session");
+            } 
+        } catch (Exception e) {
+        } finally {
+            session.close();
         }
         return contacto;
     }

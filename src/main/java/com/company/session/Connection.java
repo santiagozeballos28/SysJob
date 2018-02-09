@@ -1,4 +1,3 @@
-
 package com.company.session;
 
 import com.company.tools.ConstantData;
@@ -16,11 +15,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class Connection {
 
     public SqlSession getSqlSession() throws IOException {
-        String fileConfiguration = ConstantData.FILE_CONFIGURATION;
-        SqlSession sqlSession = null;
-        Reader reader = Resources.getResourceAsReader(fileConfiguration);
+        Reader reader = Resources.getResourceAsReader(ConstantData.FILE_CONFIGURATION);
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        sqlSession = sessionFactory.openSession();
-        return sqlSession;
+        return sessionFactory.openSession();
     }
 }

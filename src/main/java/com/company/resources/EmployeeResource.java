@@ -24,4 +24,9 @@ public class EmployeeResource {
     public Employee get(@PathParam("id") int idEmployee) {
         return contactoLogic.get(idEmployee);
     }
+    @GET
+    @Path("/{id}/historyVacations")
+    public Employee getHistoryVacations(@PathParam("id") int idEmployee) {
+        return contactoLogic.getHistoryVacation(idEmployee);
+    }
 }

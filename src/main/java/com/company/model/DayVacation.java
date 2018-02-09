@@ -10,6 +10,9 @@ public class DayVacation {
     private int vacationInitial;
     private int vacationRemaining;
 
+    public DayVacation() {
+    }
+
     public DayVacation(int idEmployee, int vacationInitial, int vacationRemaining) {
         this.idEmployee = idEmployee;
         this.vacationInitial = vacationInitial;

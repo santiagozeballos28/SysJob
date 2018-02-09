@@ -16,5 +16,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.4.5//EN"
     </environments>
     <mappers>
         <mapper resource="com/company/mappers/EmployeeMapper.xml"/> 
+        <mapper resource="com/company/mappers/HistoryVacationMapper.xml"/> 
     </mappers>   
 </configuration>

@@ -7,4 +7,6 @@ package com.company.tools;
  */
 public class ConstantData {
     public static String FILE_CONFIGURATION = "com/company/config/sysjob-config.xml";
+    public static final String GET_BY_ID_EMPLOYEE = "Employee.getById";
+    public static final String GET_BY_ID_HISTORY_VACATION = "HistoryVacation.getById";
 }

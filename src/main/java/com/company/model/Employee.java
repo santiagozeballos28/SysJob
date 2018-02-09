@@ -1,5 +1,7 @@
 package com.company.model;
 
+import java.util.List;
+
 /**
  *
  * @author santiago.mamani
@@ -11,6 +13,7 @@ public class Employee {
     private String firstName;
     private String email;
     private String dateOfHire;
+    private List<HistoryVacation> historyVacations;
 
     public Employee() {
     }
@@ -30,7 +33,7 @@ public class Employee {
         this.dateOfHire = dateOfHire;
     }
 
-    public long getIdEmployee() {
+    public int getIdEmployee() {
         return idEmployee;
     }
 
@@ -48,6 +51,10 @@ public class Employee {
 
     public String getDateOfHire() {
         return dateOfHire;
+    }
+
+    public List<HistoryVacation> getHistoryVacations() {
+        return historyVacations;
     }
 
     public void setIdEmployee(int idEmployee) {
@@ -68,5 +75,9 @@ public class Employee {
 
     public void setDateOfHire(String dateOfHire) {
         this.dateOfHire = dateOfHire;
+    }
+
+    public void setHistoryVacations(List<HistoryVacation> historyVacations) {
+        this.historyVacations = historyVacations;
     }
 }

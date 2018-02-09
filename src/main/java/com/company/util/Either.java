@@ -1,7 +1,6 @@
 package com.company.util;
 
 /**
- *
  * @author santiago.mamani
  */
 public class Either<Error, T> {

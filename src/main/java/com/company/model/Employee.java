@@ -1,14 +1,15 @@
 package com.company.model;
 
+import com.company.util.ObjectModel;
 import java.util.List;
 
 /**
  *
  * @author santiago.mamani
  */
-public class Employee {
+public class Employee extends ObjectModel{
 
-    private int idEmployee;
+    private long idEmployee;
     private String lastName;
     private String firstName;
     private String email;
@@ -18,7 +19,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int idEmployee, String lastName, String firstName, String email, String dateOfHire) {
+    public Employee(long idEmployee, String lastName, String firstName, String email, String dateOfHire) {
         this.idEmployee = idEmployee;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -33,7 +34,7 @@ public class Employee {
         this.dateOfHire = dateOfHire;
     }
 
-    public int getIdEmployee() {
+    public long getIdEmployee() {
         return idEmployee;
     }
 
@@ -57,7 +58,7 @@ public class Employee {
         return historyVacations;
     }
 
-    public void setIdEmployee(int idEmployee) {
+    public void setIdEmployee(long idEmployee) {
         this.idEmployee = idEmployee;
     }
 

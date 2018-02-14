@@ -6,20 +6,20 @@ package com.company.model;
  */
 public class DayVacation {
 
-    private int idEmployee;
+    private long idEmployee;
     private int vacationInitial;
     private int vacationRemaining;
 
     public DayVacation() {
     }
 
-    public DayVacation(int idEmployee, int vacationInitial, int vacationRemaining) {
+    public DayVacation(long idEmployee, int vacationInitial, int vacationRemaining) {
         this.idEmployee = idEmployee;
         this.vacationInitial = vacationInitial;
         this.vacationRemaining = vacationRemaining;
     }
 
-    public int getIdEmployee() {
+    public long getIdEmployee() {
         return idEmployee;
     }
 
@@ -31,7 +31,7 @@ public class DayVacation {
         return vacationRemaining;
     }
 
-    public void setIdEmployee(int idEmployee) {
+    public void setIdEmployee(long idEmployee) {
         this.idEmployee = idEmployee;
     }
 

@@ -6,7 +6,7 @@ package com.company.model;
  */
 public class Holiday {
 
-    private int idHoliday;
+    private long idHoliday;
     private String nameHoliday;
     private String dateHoliday;
 
@@ -19,7 +19,7 @@ public class Holiday {
         this.dateHoliday = dateHoliday;
     }
 
-    public int getIdHoliday() {
+    public long getIdHoliday() {
         return idHoliday;
     }
 
@@ -31,7 +31,7 @@ public class Holiday {
         return dateHoliday;
     }
 
-    public void setIdHoliday(int idHoliday) {
+    public void setIdHoliday(long idHoliday) {
         this.idHoliday = idHoliday;
     }
 

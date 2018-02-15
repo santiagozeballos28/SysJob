@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         <result property = "reason" column = "reason"/>
         <result property = "quantityDay" column = "quantity_day"/>
     </resultMap>
-    <select id = "getById" parameterType = "int" resultMap = "result">
+    <select id = "getById" parameterType = "long" resultMap = "result">
         SELECT start_date, 
         end_date, 
         reason, 

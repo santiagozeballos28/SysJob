@@ -6,20 +6,20 @@ package com.company.model;
  */
 public class VacationCompany {
 
-    private int idVacationCompany;
+    private long idVacationCompany;
     private int upToYear;
     private int daysVacation;
 
     public VacationCompany() {
     }
 
-    public VacationCompany(int idVacationCompany, int upToYear, int daysVacation) {
+    public VacationCompany(long idVacationCompany, int upToYear, int daysVacation) {
         this.idVacationCompany = idVacationCompany;
         this.upToYear = upToYear;
         this.daysVacation = daysVacation;
     }
 
-    public int getIdVacationCompany() {
+    public long getIdVacationCompany() {
         return idVacationCompany;
     }
 
@@ -31,7 +31,7 @@ public class VacationCompany {
         return daysVacation;
     }
 
-    public void setIdVacationCompany(int idVacationCompany) {
+    public void setIdVacationCompany(long idVacationCompany) {
         this.idVacationCompany = idVacationCompany;
     }
 

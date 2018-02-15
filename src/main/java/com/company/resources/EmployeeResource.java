@@ -1,12 +1,14 @@
 package com.company.resources;
 
 import com.company.logic.EmployeeLogic;
-import com.company.model.Employee;
+import com.company.util.MapperResponse;
+import com.company.util.ObjectResponce;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -17,16 +19,14 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 public class EmployeeResource {
 
-    private EmployeeLogic contactoLogic = new EmployeeLogic();
+    private EmployeeLogic employeeLogic = new EmployeeLogic();
+    private MapperResponse mapper = new MapperResponse();
 
     @GET
-    @Path("/{id}")
-    public Employee get(@PathParam("id") int idEmployee) {
-        return contactoLogic.get(idEmployee);
-    }
-    @GET
     @Path("/{id}/historyVacations")
-    public Employee getHistoryVacations(@PathParam("id") int idEmployee) {
-        return contactoLogic.getHistoryVacation(idEmployee);
+    public Response getEmployeeHistoryVacation(@PathParam("id") Long idEmployee) {
+        ObjectResponce objectResponce = employeeLogic.getEmployeeVacation(idEmployee);
+        Response response = mapper.toResponse(objectResponce);
+        return response;
     }
 }

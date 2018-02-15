@@ -10,11 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         <result property = "email" column = "email"/>
         <result property = "dateOfHire" column = "date_of_hire"/>
     </resultMap>
-    <select id = "getAll" resultMap = "resultEmployee">
-        SELECT * 
-        FROM EMPLOYEE; 
-    </select>
-    <select id = "getById" parameterType = "int" resultMap = "resultEmployee">
+    <select id = "getById" parameterType = "long" resultMap = "resultEmployee">
         SELECT employee_id,
         last_name,
         first_name,
@@ -23,16 +19,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         FROM EMPLOYEE
         WHERE employee_id = #{idEmployee};
     </select>
-    <insert id="insertarEmployee" useGeneratedKeys="true" keyProperty="employee_id" parameterType="com.company.model.Employee">
-        INSERT INTO EMPLOYEE( 
-        last_name, 
-        first_name, 
-        email, 
-        date_of_hire)
-        VALUES (
-        #{lastName},
-        #{firstName}, 
-        #{email},
-        #{dateOfHire});
-    </insert>
 </mapper>

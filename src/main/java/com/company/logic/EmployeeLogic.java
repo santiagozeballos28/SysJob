@@ -1,6 +1,6 @@
 package com.company.logic;
 
-import com.company.messages.Message;
+import com.company.util.Bundle;
 import com.company.model.Employee;
 import com.company.model.HistoryVacation;
 import com.company.session.Connection;
@@ -30,8 +30,9 @@ public class EmployeeLogic {
             session = new Connection().getSqlSession();
             Employee employee = session.selectOne(ConstantData.GET_BY_ID_EMPLOYEE, idEmployee);
             if (employee == null) {
+                Bundle bundle = new Bundle();
                 Object[] args = {ConstantData.EMPLOYEE};
-                String message = Message.getMessage(ConstantData.NOT_FOUND, args);
+                String message = bundle.getMessage(ConstantData.NOT_FOUND, args);
                 return new ObjectResponce(Response.Status.NOT_FOUND, new Error(message));
             }
             List<HistoryVacation> historyVacations = session.selectList(ConstantData.GET_BY_ID_HISTORY_VACATION, idEmployee);

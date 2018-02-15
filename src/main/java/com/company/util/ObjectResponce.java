@@ -15,6 +15,10 @@ public class ObjectResponce {
     public ObjectResponce() {
     }
 
+    public ObjectResponce(Status status) {
+        this.status = status;
+    }
+
     public ObjectResponce(Status status, ObjectModel objectModel) {
         this.status = status;
         this.objectModel = objectModel;

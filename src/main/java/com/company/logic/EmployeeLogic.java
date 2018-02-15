@@ -41,7 +41,9 @@ public class EmployeeLogic {
         } catch (Exception e) {
             return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new Error(e.getMessage()));
         } finally {
-            session.close();
+            if (session != null) {
+                session.close();
+            }
         }
     }
 }

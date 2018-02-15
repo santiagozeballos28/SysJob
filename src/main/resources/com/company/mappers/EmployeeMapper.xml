@@ -10,13 +10,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         <result property = "email" column = "email"/>
         <result property = "dateOfHire" column = "date_of_hire"/>
     </resultMap>
-    <select id = "getById" parameterType = "long" resultMap = "resultEmployee">
+    <sql id = "getEmployee">
         SELECT employee_id,
         last_name,
         first_name,
         email,
         date_of_hire 
         FROM EMPLOYEE
-        WHERE employee_id = #{idEmployee};
+    </sql>
+    <select id="getById"  parameterType="long" resultMap="resultEmployee" >
+        <include refid="getEmployee"/>
+        WHERE employee_id = #{idEmployee}
+    </select>
+    <select id="getAllNotInDayVacation"  parameterType="int" resultMap="resultEmployee" >
+        <include refid="getEmployee"/>
+        WHERE employee_id
+        NOT IN 
+        (SELECT employee_id
+        FROM DAYS_VACATION
+        WHERE year_vacation = #{year})
     </select>
 </mapper>

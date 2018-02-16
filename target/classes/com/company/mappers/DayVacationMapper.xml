@@ -22,5 +22,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         </foreach>
         )
     </insert>
+    <resultMap id = "resultDayVacation" type = "com.company.model.DayVacation">
+        <result property = "idEmployee" column = "employee_id"/>
+        <result property = "year" column = "year_vacation"/>
+        <result property = "vacationInitial" column = "vacation_initial"/>
+        <result property = "vacationRemaining" column = "vacation_remaining"/>
+    </resultMap>
+    <sql id = "getDayVacation">
+        SELECT employee_id, 
+        year_vacation, 
+        vacation_initial, 
+        vacation_remaining
+        FROM days_vacation
+    </sql>
+    <select id="getByIdAndYear"  parameterType="com.company.model.DayVacation" resultMap="resultDayVacation" >
+        <include refid="getDayVacation"/>
+        WHERE employee_id = #{idEmployee}
+          AND year_vacation =  #{year}
+    </select>
 </mapper>
 

@@ -31,14 +31,13 @@ public class EmployeeLogic {
             Employee employee = session.selectOne(ConstantData.GET_BY_ID_EMPLOYEE, idEmployee);
             if (employee == null) {
                 Bundle bundle = new Bundle();
-                Object[] args = {ConstantData.EMPLOYEE};
+                Object[] args = {bundle.getData(ConstantData.EMPLOYEE)};
                 String message = bundle.getMessage(ConstantData.NOT_FOUND, args);
                 return new ObjectResponce(Response.Status.NOT_FOUND, new Error(message));
             }
             List<HistoryVacation> historyVacations = session.selectList(ConstantData.GET_BY_ID_HISTORY_VACATION, idEmployee);
             employee.setHistoryVacations(historyVacations);
             return new ObjectResponce(Response.Status.OK, employee);
-
         } catch (Exception e) {
             return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new Error(e.getMessage()));
         } finally {

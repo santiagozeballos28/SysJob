@@ -56,6 +56,27 @@ public class DateOperation {
     }
 
     /*
+    *This method must necessarily receive a valid formatted date.
+    *Otherwise the "catch" must be implemented.
+    *It is mandatory that dateSecond be equal to or greater than date dateFirst.
+     */
+    public static int diferenceDays(String dateFirst, String dateSecond) {
+        int diferenceDays = -1;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantData.SIMPLE_DATE_FORMAT);
+            Date dateFirstFormat = dateFormat.parse(dateFirst);
+            Date dateSecondFormat = dateFormat.parse(dateSecond);
+            LocalDate localDateFirst = LocalDate.fromDateFields(dateFirstFormat);
+            LocalDate localDateSecond = LocalDate.fromDateFields(dateSecondFormat);
+            Period diff = Period.fieldDifference(localDateFirst, localDateSecond);
+            diferenceDays = diff.getDays();
+        } catch (ParseException ex) {
+            //Implement if the input date parameter is an invalid format
+        }
+        return diferenceDays;
+    }
+
+    /*
     * This method must necessarily receive a valid formatted date.
     * Otherwise the "catch" must be implemented.
      */

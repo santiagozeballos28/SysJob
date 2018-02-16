@@ -21,9 +21,15 @@ public class VacationCreate {
     private DayVacation dayVacation;
     private HistoryVacation historyVacation;
     private List<VacationCompany> vacationsCompany;
+    private DateValidation dateValidation;
+    private ObjectValidation objectValidation;
 
     public VacationCreate() {
         bundle = new Bundle();
+        dateValidation = new DateValidation();
+        objectValidation = new ObjectValidation();
+        historyVacation = new HistoryVacation();
+        dayVacation = new DayVacation();
     }
 
     public VacationCreate(DayVacation dayVacation, HistoryVacation historyVacation, List<VacationCompany> vacationsCompany) {
@@ -45,7 +51,7 @@ public class VacationCreate {
         this.vacationsCompany = vacationsCompany;
     }
 
-    private Either<Error, Boolean> notEmpty(String startDate, String endDate) {
+    public Either<Error, Boolean> notEmpty(String startDate, String endDate) {
         Error error = new Error();
         if (StringUtils.isBlank(startDate)) {
             Object[] args = {bundle.getData(ConstantData.START_DATE)};
@@ -57,24 +63,91 @@ public class VacationCreate {
             String message = bundle.getMessage(ConstantData.EMPTY, args);
             error.addError(message);
         }
-        if (error.isEmpty()) {
+        if (!error.isEmpty()) {
             return Either.error(error);
         }
         return Either.success(true);
     }
 
-    public Either<Error, Boolean> dataValid(String startDate, String endDate, String reason) {
-        return null;
+    public Either<Error, Boolean> reasonValid(String reason) {
+        return objectValidation.isUsAscii(reason.trim());
     }
 
-    private Either<Error, Boolean> isValidFormat(String startDate, String endDate) {
-        Either<Error, Boolean> res = new Either<Error, Boolean>();
+    public Either<Error, Boolean> complyConditionDate(String startDate, String endDate) {
         Error error = new Error();
-        if (!DateOperation.isValidDateFormat(startDate)) {
-            Object[] args = {bundle.getData(ConstantData.START_DATE)};
-            String message = bundle.getMessage(ConstantData.EMPTY, args);
-            error.addError(message);
+        Either<Error, Boolean> resValidDate = dateValid(startDate, endDate);
+        if (resValidDate.error()) {
+            return resValidDate;
         }
-        return res;
+        int numberDaysRequested = DateOperation.diferenceDays(startDate, endDate);
+        resValidDate = hasRemainingVacation(numberDaysRequested);
+        if (resValidDate.error()) {
+            error.addAllErrors(resValidDate.getError());
+        }
+
+        if (!error.isEmpty()) {
+            return Either.error(error);
+        }
+        return Either.success(true);
+    }
+
+    private Either<Error, Boolean> dateValid(String startDate, String endDate) {
+        Either<Error, Boolean> resValidDate = dateValidation.isValidFormat(startDate, endDate);
+        if (resValidDate.error()) {
+            return resValidDate;
+        }
+        resValidDate = dateValidation.isLess(startDate, endDate);
+        Error errorRes = new Error();
+        if (resValidDate.error()) {
+            errorRes.addAllErrors(resValidDate.getError());
+        }
+        resValidDate = dateValidation.areSameYear(startDate, endDate);
+        if (resValidDate.error()) {
+            errorRes.addAllErrors(resValidDate.getError());
+        } else {
+            resValidDate = separationDay(startDate);
+            if (resValidDate.error()) {
+                errorRes.addAllErrors(resValidDate.getError());
+            }
+        }
+        if (!errorRes.isEmpty()) {
+            return Either.error(errorRes);
+        }
+        return Either.success(true);
+    }
+
+    private Either<Error, Boolean> separationDay(String startDate) {
+        if (historyVacation.isEmpty()) {
+            return Either.success(true);
+        }
+        boolean historyVacationSameYear = DateOperation.areSameYear(historyVacation.getEndDate(), startDate);
+        if (historyVacationSameYear) {
+            return validSeparationDay(historyVacation.getEndDate(), startDate);
+        }
+        return Either.success(true);
+    }
+
+    private Either<Error, Boolean> hasRemainingVacation(int numberDaysRequested) {
+        if (dayVacation.getVacationRemaining() == 0) {
+            Object[] args = {};
+            String message = bundle.getMessage(ConstantData.CAN_NOT_VACATION, args);
+            return Either.error(new Error(message));
+        }
+        if (numberDaysRequested > dayVacation.getVacationRemaining()) {
+            Object[] args = {numberDaysRequested, dayVacation.getVacationRemaining()};
+            String message = bundle.getMessage(ConstantData.REMAINING_VACATION, args);
+            return Either.error(new Error(message));
+        }
+        return Either.success(true);
+    }
+
+    private Either<Error, Boolean> validSeparationDay(String endDateBeforeVacation, String startDateCurrectVacation) {
+        int diferenceDay = DateOperation.diferenceDays(endDateBeforeVacation, startDateCurrectVacation);
+        if (diferenceDay < ConstantData.SEPARATION_VACATION_DAY) {
+            Object[] args = {ConstantData.SEPARATION_VACATION_DAY};
+            String message = bundle.getMessage(ConstantData.SEPARATION_VACATION, args);
+            return Either.error(new Error(message));
+        }
+        return Either.success(true);
     }
 }

@@ -18,7 +18,7 @@ public class EmployeeGet {
     public Either<Error, Boolean> complyCondition(Long identifier) {
         Either<Error, Boolean> either = new Either<Error, Boolean>();
         Error error = new Error();
-        objectValidation.verifyEmpty(identifier, error);
+        objectValidation.verifyEmptyIdentifier(identifier, error);
         if (!error.isEmpty()) {
             return Either.error(error);
 

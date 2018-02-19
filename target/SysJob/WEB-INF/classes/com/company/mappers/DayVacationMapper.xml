@@ -35,10 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         vacation_remaining
         FROM days_vacation
     </sql>
-    <select id="getByIdAndYear"  parameterType="com.company.model.DayVacation" resultMap="resultDayVacation" >
+    <select id="getByIdAndYear"  parameterType="map" resultMap="resultDayVacation" >
         <include refid="getDayVacation"/>
         WHERE employee_id = #{idEmployee}
-          AND year_vacation =  #{year}
+        AND year_vacation =  #{year}
     </select>
 </mapper>
 

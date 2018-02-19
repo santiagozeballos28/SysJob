@@ -14,7 +14,6 @@ public class DateOperationTest {
 
         int expected = 1;
         String date = "2017-02-14";
-        System.out.println("DIF: " + DateOperation.diferenceYear(date));
         Assert.assertEquals(DateOperation.diferenceYear(date), expected);
     }
 
@@ -23,7 +22,6 @@ public class DateOperationTest {
 
         int expected = 0;
         String date = "2017-02-15";
-        System.out.println("DIF: " + DateOperation.diferenceYear(date));
         Assert.assertEquals(DateOperation.diferenceYear(date), expected);
     }
 }

@@ -19,7 +19,7 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class EmployeeLogic {
 
-    public ObjectResponce getEmployeeVacation(Long idEmployee) {
+    public ObjectResponce getEmployeeHistoryVacation(Long idEmployee) {
         EmployeeGet employeeGet = new EmployeeGet();
         Either<Error, Boolean> complyCondition = employeeGet.complyCondition(idEmployee);
         if (complyCondition.error()) {
@@ -41,9 +41,7 @@ public class EmployeeLogic {
         } catch (Exception e) {
             return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new Error(e.getMessage()));
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 }

@@ -11,7 +11,9 @@ import com.company.util.Error;
 import com.company.util.ObjectResponce;
 import com.company.validation.EmployeeGet;
 import com.company.validation.VacationCreate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -54,10 +56,10 @@ public class HistoryVacationLogic {
                 String message = bundle.getMessage(ConstantData.NOT_FOUND, args);
                 return new ObjectResponce(Response.Status.NOT_FOUND, new Error(message));
             }
-            DayVacation dayVacationInput = new DayVacation();
-            dayVacationInput.setIdEmployee(idEmployee);
-            dayVacationInput.setYear(DateOperation.getYearCurrent());
-            DayVacation dayVacation = session.selectOne(ConstantData.GET_DAY_VACATION_BY_ID_AND_YEAR, dayVacationInput);
+            Map<String, Object> filterData = new HashMap<String, Object>();
+            filterData.put("idEmployee", idEmployee);
+            filterData.put("year", DateOperation.getYearCurrent());
+            DayVacation dayVacation = session.selectOne(ConstantData.GET_DAY_VACATION_BY_ID_AND_YEAR, filterData);
             vacationCreate.setDayVacation(dayVacation);
             List<HistoryVacation> historyVacations = session.selectList(ConstantData.GET_BY_ID_HISTORY_VACATION, idEmployee);
             if (!historyVacations.isEmpty()) {
@@ -73,11 +75,10 @@ public class HistoryVacationLogic {
             }
             return new ObjectResponce(Response.Status.CREATED);
         } catch (Exception e) {
+            session.rollback();
             return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new Error(e.getMessage()));
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 }

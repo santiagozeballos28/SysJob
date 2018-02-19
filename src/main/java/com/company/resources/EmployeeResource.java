@@ -25,7 +25,7 @@ public class EmployeeResource {
     @GET
     @Path("/{id}/historyVacations")
     public Response getEmployeeHistoryVacation(@PathParam("id") Long idEmployee) {
-        ObjectResponce objectResponce = employeeLogic.getEmployeeVacation(idEmployee);
+        ObjectResponce objectResponce = employeeLogic.getEmployeeHistoryVacation(idEmployee);
         Response response = mapper.toResponse(objectResponce);
         return response;
     }

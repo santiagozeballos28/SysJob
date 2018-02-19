@@ -6,6 +6,7 @@ import com.company.model.VacationCompany;
 import com.company.session.Connection;
 import com.company.tools.ConstantData;
 import com.company.util.ObjectResponce;
+import com.company.util.Error;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Response;
@@ -24,16 +25,16 @@ public class DaysVacationLogic {
             session = new Connection().getSqlSession();
             List<Employee> employeesNotInDayVacations = session.selectList(ConstantData.EMPLOYEES_NOT_IN_DAY_VACATION, yearCurrent);
             if (employeesNotInDayVacations.isEmpty()) {
-                return new ObjectResponce(Response.Status.OK);
+                return new ObjectResponce(Response.Status.CREATED);
             }
             List<VacationCompany> vacationCompanys = session.selectList(ConstantData.GET_ALL_VACATION_COMPANY);
             List<DayVacation> dayVacations = generateDaysVacation(employeesNotInDayVacations, vacationCompanys);
             session.insert(ConstantData.INSERT_DAY_VACATION_LIST, dayVacations);
             session.commit();
-            return new ObjectResponce(Response.Status.OK);
+            return new ObjectResponce(Response.Status.CREATED);
         } catch (Exception e) {
             session.rollback();
-            return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new com.company.util.Error(e.getMessage()));
+            return new ObjectResponce(Response.Status.INTERNAL_SERVER_ERROR, new Error(e.getMessage()));
         } finally {
             session.close();
         }

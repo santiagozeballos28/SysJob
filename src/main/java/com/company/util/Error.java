@@ -31,6 +31,10 @@ public class Error extends ObjectModel {
     public void addError(String error) {
         errors.add(error);
     }
+    public void addAllErrors(Error error) {
+       errors.addAll(error.getErrors());
+    }
+
     @JsonIgnore
     public boolean isEmpty() {
         return errors.isEmpty();

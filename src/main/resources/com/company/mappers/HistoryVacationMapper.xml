@@ -9,12 +9,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.4.5//EN"
         <result property = "reason" column = "reason"/>
         <result property = "quantityDay" column = "quantity_day"/>
     </resultMap>
-    <select id = "getById" parameterType = "long" resultMap = "result">
+    <sql id = "getHistoryVacation">
         SELECT start_date, 
         end_date, 
         reason, 
         quantity_day
         FROM HISTORY_VACATION
+    </sql>
+    <select id = "getById" parameterType = "long" resultMap = "result">
+        <include refid="getHistoryVacation"/>
         WHERE employee_id = #{idEmployee}
         ORDER BY start_date ASC
     </select>

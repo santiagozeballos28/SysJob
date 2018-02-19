@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author santiago.mamani
@@ -51,5 +53,9 @@ public class HistoryVacation {
 
     public void setQuantityDay(int quantityDay) {
         this.quantityDay = quantityDay;
+    }
+     @JsonIgnore
+    public boolean isEmpty() {
+        return startDate==null&&endDate==null;
     }
 }
